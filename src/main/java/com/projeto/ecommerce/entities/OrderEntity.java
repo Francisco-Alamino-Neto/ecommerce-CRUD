@@ -2,12 +2,12 @@ package com.projeto.ecommerce.entities;
 
 import com.projeto.ecommerce.enums.StatusDoPedido;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -15,6 +15,8 @@ import java.util.UUID;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class OrderEntity {
     @Id
@@ -26,15 +28,15 @@ public class OrderEntity {
     @ManyToOne
     //  define qual coluna será usada como chave estrangeira na tabela
     @JoinColumn(name  = "cliente_id")
-    private UserEntity client;
+    private UserEntity clientId;
 
     @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
     private PaymentEntity payment;
 
     @OneToMany(mappedBy = "id.order", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<OrderItem> items = new HashSet<>();
+    private Set<OrderItemEntity> items = new HashSet<>();
 
     public List<ProductEntity> getProduct() {
-        return items.stream().map(OrderItem::getProduct).toList();
+        return items.stream().map(OrderItemEntity::getProduct).toList();
     }
 }

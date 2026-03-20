@@ -3,23 +3,44 @@ package com.projeto.ecommerce.controllers;
 import com.projeto.ecommerce.DTOs.OrderDTO;
 import com.projeto.ecommerce.services.OrderService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.UUID;
+
+@RequestMapping("pedido")
 @RestController
 public class OrderController {
 
-    private final OrderService service;
+    private final OrderService orderService;
 
+    public OrderController(OrderService orderService) {
+        this.orderService = orderService;
+    }
 
-    public OrderController(OrderService service) {
-        this.service = service;
+    @GetMapping
+    public ResponseEntity<List<OrderDTO>> findAll() {
+        return ResponseEntity.ok(orderService.findAll());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<OrderDTO> findById(@PathVariable UUID id) {
+        return ResponseEntity.ok(orderService.findById(id));
     }
 
     @PostMapping
-    public ResponseEntity<?> create(@RequestBody OrderDTO dto) {
-        dto = orderService.create(dto);
-        return ResponseEntity.ok("Criado ocom sucesso!");
+    public ResponseEntity<OrderDTO> create(@RequestBody OrderDTO dto) {
+        return ResponseEntity.ok(orderService.create(dto));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<OrderDTO> update(@PathVariable UUID id, @RequestBody OrderDTO dto) {
+        return ResponseEntity.ok(orderService.update(id, dto));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable UUID id) {
+        orderService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }

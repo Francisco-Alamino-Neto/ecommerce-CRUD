@@ -30,9 +30,4 @@ public class ProductEntity {
             joinColumns = @JoinColumn(name = "produto_id"),
             inverseJoinColumns = @JoinColumn(name = "categoria_id"))
     private Set<CategoryEntity> categories = new HashSet<>();
-    @OneToMany(mappedBy = "id.product")
-    private Set<OrderItem> items = new HashSet<>();
-    public List<OrderEntity> getOrder(){
-        return items.stream().map(OrderItem::getOrder).toList();
-    }
 }

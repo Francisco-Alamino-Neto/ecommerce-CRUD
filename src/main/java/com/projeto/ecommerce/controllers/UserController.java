@@ -1,26 +1,51 @@
 package com.projeto.ecommerce.controllers;
 
 import com.projeto.ecommerce.DTOs.UserDTO;
+import com.projeto.ecommerce.entities.UserEntity;
 import com.projeto.ecommerce.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.UUID;
 
 @RequestMapping("usuario")
 @RestController
 public class UserController {
 
     @Autowired
-    UserService userService;
+    private final UserService userService;
 
-    @PostMapping(value = "/salvar")
-    public ResponseEntity<UserDTO> save(@Valid @RequestBody UserDTO dto) {
-        dto = userService.create(dto);
-        return ResponseEntity.ok(dto);
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
+    @GetMapping
+    public ResponseEntity<List<UserDTO>> findAll() {
+        return ResponseEntity.ok(userService.findAll());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<UserDTO> findById(@PathVariable UUID id) {
+        return ResponseEntity.ok(userService.findById(id));
+    }
+
+    @PostMapping
+    public ResponseEntity<UserDTO> create(@RequestBody UserEntity entity) {
+        return ResponseEntity.ok(userService.create(entity));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<UserDTO> update(@PathVariable UUID id, @RequestBody UserDTO dto) {
+        return ResponseEntity.ok(userService.update(id, dto));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable UUID id) {
+        userService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 
 }

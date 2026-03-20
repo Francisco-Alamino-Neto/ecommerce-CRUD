@@ -1,6 +1,5 @@
 package com.projeto.ecommerce.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
@@ -13,13 +12,13 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class OrderItem {
+public class OrderItemEntity {
     @EmbeddedId
-    private OrderItemPK id = new OrderItemPK();
+    private OrderItemPKEntity id = new OrderItemPKEntity();
     private Integer quantity;
     private Double price;
 
-    public OrderItem(OrderEntity order, ProductEntity product, Integer quantity, Double price) {
+    public OrderItemEntity(OrderEntity order, ProductEntity product, Integer quantity, Double price) {
         id.setOrder(order);
         id.setProduct(product);
         this.quantity = quantity;

@@ -1,22 +1,22 @@
 package com.projeto.ecommerce.DTOs;
 
-import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.Instant;
+import java.util.Set;
 import java.util.UUID;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PaymentDTO {
-
-    @Id
+public class ProductDTO {
     private UUID id;
-    private Instant moment;
-    private UUID orderId;
+    private String name;
+    private String description;
+    private double price;
+    private String imgURL;
+    private Set<UUID> categoriesIds;
 }

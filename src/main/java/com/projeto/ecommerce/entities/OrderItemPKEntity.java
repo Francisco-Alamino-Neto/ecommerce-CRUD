@@ -13,7 +13,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Embeddable
-public class OrderItemPK {
+public class OrderItemPKEntity {
     @ManyToOne
     @JoinColumn(name = "order_id")
     private OrderEntity order;
