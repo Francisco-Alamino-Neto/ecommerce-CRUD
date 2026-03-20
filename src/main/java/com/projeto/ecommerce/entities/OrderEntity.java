@@ -30,7 +30,7 @@ public class OrderEntity {
     @JoinColumn(name  = "cliente_id")
     private UserEntity clientId;
 
-    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "orderId", cascade = CascadeType.ALL)
     private PaymentEntity payment;
 
     @OneToMany(mappedBy = "id.order", cascade = CascadeType.ALL, orphanRemoval = true)
