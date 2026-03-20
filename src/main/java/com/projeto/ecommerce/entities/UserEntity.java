@@ -31,7 +31,7 @@ public class UserEntity {
 //  vai servir pra gerenciar as permissões do usuário
     private RoleEnum roles;
 //  Anotation pra falar que é uma relaçao 1 para muitos baseado na chave estrangeira client
-    @OneToMany(mappedBy = "clientId")
+    @OneToMany(mappedBy = "client")
 //  Criando uma lista pra mostrar todos os pedidos dos Usuários
     private List<OrderEntity> orders = new ArrayList<>();
 

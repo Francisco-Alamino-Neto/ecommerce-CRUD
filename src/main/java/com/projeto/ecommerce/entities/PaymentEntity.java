@@ -28,5 +28,5 @@ public class PaymentEntity {
 
     @OneToOne
     @JoinColumn(name="order_id")
-    private OrderEntity orderId;
+    private OrderEntity order;
 }

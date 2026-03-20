@@ -28,9 +28,9 @@ public class OrderEntity {
     @ManyToOne
     //  define qual coluna será usada como chave estrangeira na tabela
     @JoinColumn(name  = "cliente_id")
-    private UserEntity clientId;
+    private UserEntity client;
 
-    @OneToOne(mappedBy = "orderId", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
     private PaymentEntity payment;
 
     @OneToMany(mappedBy = "id.order", cascade = CascadeType.ALL, orphanRemoval = true)

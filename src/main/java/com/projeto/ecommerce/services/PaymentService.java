@@ -45,7 +45,7 @@ public class PaymentService {
 
         PaymentEntity paymentEntity = new PaymentEntity();
         paymentEntity.setMoment(Instant.now());
-        paymentEntity.setOrderId(orderEntity);
+        paymentEntity.setOrder(orderEntity);
 
         return toDTO(paymentRepository.save(paymentEntity));
     }
@@ -70,7 +70,7 @@ public class PaymentService {
         return new PaymentDTO(
                 paymentEntity.getId(),
                 paymentEntity.getMoment(),
-                paymentEntity.getOrderId().getId()
+                paymentEntity.getOrder().getId()
         );
     }
 }

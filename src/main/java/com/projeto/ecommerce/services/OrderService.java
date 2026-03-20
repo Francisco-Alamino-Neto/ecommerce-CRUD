@@ -44,7 +44,7 @@ public class OrderService {
         OrderEntity orderEntity = new OrderEntity();
         orderEntity.setMoment(LocalDate.now());
         orderEntity.setStatus(dto.getStatus());
-        orderEntity.setClientId(userEntity);
+        orderEntity.setClient(userEntity);
 
         return toDTO(orderRepository.save(orderEntity));
     }
@@ -58,7 +58,7 @@ public class OrderService {
         if (dto.getClientId() != null) {
             UserEntity userEntity = userRepository.findById(dto.getClientId())
                     .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
-            orderEntity.setClientId(userEntity);
+            orderEntity.setClient(userEntity);
         }
 
         return toDTO(orderRepository.save(orderEntity));
@@ -76,7 +76,7 @@ public class OrderService {
                 orderEntity.getId(),
                 orderEntity.getMoment(),
                 orderEntity.getStatus(),
-                orderEntity.getClientId().getId()
+                orderEntity.getClient().getId()
         );
     }
 }
