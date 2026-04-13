@@ -3,6 +3,7 @@ package com.projeto.ecommerce.services;
 import com.projeto.ecommerce.DTOs.UserDTO;
 import com.projeto.ecommerce.entities.UserEntity;
 import com.projeto.ecommerce.repositories.UserRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,9 +14,11 @@ import java.util.stream.Collectors;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public List<UserDTO> findAll() {
