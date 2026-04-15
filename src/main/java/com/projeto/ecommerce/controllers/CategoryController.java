@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
-@RequestMapping("categoria")
+@RequestMapping("categories")
 @RestController
 public class CategoryController {
 
@@ -23,22 +23,22 @@ public class CategoryController {
         return ResponseEntity.ok(categoryService.findAll());
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("view/{id}")
     public ResponseEntity<CategoryDTO> findById(@PathVariable UUID id) {
         return ResponseEntity.ok(categoryService.findById(id));
     }
 
-    @PostMapping
+    @PostMapping("create")
     public ResponseEntity<CategoryDTO> create(@RequestBody CategoryDTO dto) {
         return ResponseEntity.ok(categoryService.create(dto));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("update/{id}")
     public ResponseEntity<CategoryDTO> update(@PathVariable UUID id, @RequestBody CategoryDTO dto) {
         return ResponseEntity.ok(categoryService.update(id, dto));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("delete/{id}")
     public ResponseEntity<Void> delete(@PathVariable UUID id) {
         categoryService.delete(id);
         return ResponseEntity.noContent().build();

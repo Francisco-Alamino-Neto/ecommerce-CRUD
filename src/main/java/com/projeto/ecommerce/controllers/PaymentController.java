@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
-@RequestMapping("pagamento")
+@RequestMapping("payments")
 @RestController
 public class PaymentController {
 
@@ -23,22 +23,22 @@ public class PaymentController {
         return ResponseEntity.ok(paymentService.findAll());
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("view/{id}")
     public ResponseEntity<PaymentDTO> findById(@PathVariable UUID id) {
         return ResponseEntity.ok(paymentService.findById(id));
     }
 
-    @PostMapping
+    @PostMapping("create")
     public ResponseEntity<PaymentDTO> create(@RequestBody PaymentDTO dto) {
         return ResponseEntity.ok(paymentService.create(dto));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("update/{id}")
     public ResponseEntity<PaymentDTO> update(@PathVariable UUID id, @RequestBody PaymentDTO dto) {
         return ResponseEntity.ok(paymentService.update(id, dto));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("delete/{id}")
     public ResponseEntity<Void> delete(@PathVariable UUID id) {
         paymentService.delete(id);
         return ResponseEntity.noContent().build();

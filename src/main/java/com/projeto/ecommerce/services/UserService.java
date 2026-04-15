@@ -36,6 +36,7 @@ public class UserService {
     }
 
     public UserDTO create(UserEntity userEntity) {
+        userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
         return toDTO(userRepository.save(userEntity));
     }
 

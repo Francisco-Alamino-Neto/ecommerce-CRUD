@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
-@RequestMapping("produto")
+@RequestMapping("products")
 @RestController
 public class ProductController {
 
@@ -23,22 +23,22 @@ public class ProductController {
         return ResponseEntity.ok(productService.findAll());
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("view/{id}")
     public ResponseEntity<ProductDTO> findById(@PathVariable UUID id) {
         return ResponseEntity.ok(productService.findById(id));
     }
 
-    @PostMapping
+    @PostMapping("create")
     public ResponseEntity<ProductDTO> create(@RequestBody ProductDTO dto) {
         return ResponseEntity.ok(productService.create(dto));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("update/{id}")
     public ResponseEntity<ProductDTO> update(@PathVariable UUID id, @RequestBody ProductDTO dto) {
         return ResponseEntity.ok(productService.update(id, dto));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("delete/{id}")
     public ResponseEntity<Void> delete(@PathVariable UUID id) {
         productService.delete(id);
         return ResponseEntity.noContent().build();

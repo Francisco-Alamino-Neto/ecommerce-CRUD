@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
-@RequestMapping("pedido")
+@RequestMapping("orders")
 @RestController
 public class OrderController {
 
@@ -23,22 +23,22 @@ public class OrderController {
         return ResponseEntity.ok(orderService.findAll());
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("view/{id}")
     public ResponseEntity<OrderDTO> findById(@PathVariable UUID id) {
         return ResponseEntity.ok(orderService.findById(id));
     }
 
-    @PostMapping
+    @PostMapping("create")
     public ResponseEntity<OrderDTO> create(@RequestBody OrderDTO dto) {
         return ResponseEntity.ok(orderService.create(dto));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("update/{id}")
     public ResponseEntity<OrderDTO> update(@PathVariable UUID id, @RequestBody OrderDTO dto) {
         return ResponseEntity.ok(orderService.update(id, dto));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("delete/{id}")
     public ResponseEntity<Void> delete(@PathVariable UUID id) {
         orderService.delete(id);
         return ResponseEntity.noContent().build();
