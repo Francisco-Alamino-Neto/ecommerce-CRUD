@@ -2,6 +2,8 @@ package com.projeto.ecommerce.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,16 +21,22 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/users/create").permitAll()
+                        .requestMatchers("/users/create", "/login").permitAll()
                         .requestMatchers("/categories/create", "/products/create").hasRole("ADMIN")
                         .requestMatchers("/orders/create", "/categories/view", "/products/view", "/payments/**").hasAnyRole("USER", "ADMIN")
 
                         .anyRequest().authenticated()
-                )
-                .httpBasic(withDefaults());
+                );
 
 
         return http.build();
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(
+            AuthenticationConfiguration authenticationConfiguration
+    ) throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
     }
 
     @Bean

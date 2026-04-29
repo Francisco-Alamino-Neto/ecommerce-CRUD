@@ -21,6 +21,7 @@ import java.util.UUID;
 public class OrderEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(columnDefinition = "BINARY(16)")
     private UUID id;
     private LocalDate moment;
     private StatusDoPedido status;
