@@ -18,13 +18,16 @@ public class UserDTO {
     private String email;
     private String phone;
     private String password;
+    private String photo;
     private RoleEnum roles;
 
-    public UserDTO(UUID id, String name, String email, String phone, RoleEnum roles) {
+    public UserDTO(UUID id, String name, String email, String phone, String photo, RoleEnum roles) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.phone = phone;
+        this.photo = photo;
         this.roles = roles;
+
     }
 }

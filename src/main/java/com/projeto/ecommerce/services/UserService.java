@@ -21,6 +21,19 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    public UserDTO saveUser(String name, String email, String pathPhoto) {
+
+        UserEntity user = new UserEntity();
+
+        user.setName(name);
+        user.setEmail(email);
+        user.setPhoto(pathPhoto);
+
+        UserEntity savedUser = userRepository.save(user);
+
+        return toDTO(savedUser);
+    }
+
     public List<UserDTO> findAll() {
         return userRepository.findAll()
                 .stream()
@@ -65,6 +78,7 @@ public class UserService {
                 userEntity.getName(),
                 userEntity.getEmail(),
                 userEntity.getPhone(),
+                userEntity.getPhoto(),
                 userEntity.getRoles()
         );
     }

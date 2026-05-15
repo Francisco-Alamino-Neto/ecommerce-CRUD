@@ -24,6 +24,31 @@ public class ProductService {
         this.categoryRepository = categoryRepository;
     }
 
+    public ProductDTO saveProduct(
+            String name,
+            String description,
+            double price,
+            String imgURL,
+            Set<UUID> categoriesIds
+    ) {
+
+        ProductEntity product = new ProductEntity();
+
+        product.setName(name);
+        product.setDescription(description);
+        product.setPrice(price);
+        product.setImgURL(imgURL);
+
+        Set<CategoryEntity> categories = categoriesIds.stream()
+                .map(catId -> categoryRepository.findById(catId)
+                        .orElseThrow(() -> new RuntimeException("Categoria não encontrada")))
+                .collect(Collectors.toSet());
+
+        product.setCategories(categories);
+
+        return toDTO(productRepository.save(product));
+    }
+
     public List<ProductDTO> findAll() {
         return productRepository.findAll()
                 .stream()

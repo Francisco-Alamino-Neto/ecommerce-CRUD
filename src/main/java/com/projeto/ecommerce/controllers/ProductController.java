@@ -1,11 +1,15 @@
 package com.projeto.ecommerce.controllers;
 
 import com.projeto.ecommerce.DTOs.ProductDTO;
+import com.projeto.ecommerce.services.PhotoService;
 import com.projeto.ecommerce.services.ProductService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @RequestMapping("products")
@@ -13,9 +17,11 @@ import java.util.UUID;
 public class ProductController {
 
     private final ProductService productService;
+    private final PhotoService photoService;
 
-    public ProductController(ProductService productService) {
+    public ProductController(ProductService productService, PhotoService photoService) {
         this.productService = productService;
+        this.photoService = photoService;
     }
 
     @GetMapping
@@ -31,6 +37,28 @@ public class ProductController {
     @PostMapping("create")
     public ResponseEntity<ProductDTO> create(@RequestBody ProductDTO dto) {
         return ResponseEntity.ok(productService.create(dto));
+    }
+
+    @PostMapping("/upload")
+    public ResponseEntity<ProductDTO> uploadProduct(
+            @RequestParam String name,
+            @RequestParam String description,
+            @RequestParam double price,
+            @RequestParam Set<UUID> categoriesIds,
+            @RequestParam MultipartFile photo
+    ) throws IOException {
+
+        String pathPhoto = photoService.savePhoto(photo);
+
+        return ResponseEntity.ok(
+                productService.saveProduct(
+                        name,
+                        description,
+                        price,
+                        pathPhoto,
+                        categoriesIds
+                )
+        );
     }
 
     @PutMapping("update/{id}")

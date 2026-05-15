@@ -27,6 +27,7 @@ public class UserEntity {
     private String email;
     private String phone;
     private String password;
+    private String photo;
 //  Salvar no banco com as informações do Enum e não com zero, 1, 2...
     @Enumerated(EnumType.STRING)
 //  vai servir pra gerenciar as permissões do usuário
@@ -36,11 +37,12 @@ public class UserEntity {
 //  Criando uma lista pra mostrar todos os pedidos dos Usuários
     private List<OrderEntity> orders = new ArrayList<>();
 
-    public UserEntity(String name, String email, String phone, String password, RoleEnum roles) {
+    public UserEntity(String name, String email, String phone, String password, String photo, RoleEnum roles) {
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.password = password;
+        this.photo = photo;
         this.roles = roles;
     }
 }
